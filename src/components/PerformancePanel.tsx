@@ -5,7 +5,10 @@ interface PerformancePanelProps {
 }
 
 export function PerformancePanel({ pretextTime, domTime, label = 'Layout time' }: PerformancePanelProps) {
-  const speedup = pretextTime && domTime ? (domTime / pretextTime) : null
+  const hasBoth = pretextTime !== null && domTime !== null
+  const speedup = hasBoth && pretextTime > 0 ? (domTime / pretextTime) : null
+  // When pretext rounds to 0ms, show a special "instant" message instead of Infinity×
+  const pretextIsInstant = hasBoth && pretextTime < 0.005 && domTime > 0
 
   return (
     <div style={{
@@ -25,7 +28,17 @@ export function PerformancePanel({ pretextTime, domTime, label = 'Layout time' }
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
         <Chip color="var(--color-accent)" label="Pretext" value={pretextTime} />
         <Chip color="var(--color-warning)" label="DOM" value={domTime} />
-        {speedup !== null && speedup > 0 && (
+        {pretextIsInstant && (
+          <span style={{
+            fontSize: '0.85rem',
+            fontWeight: 700,
+            color: 'var(--color-success)',
+            marginLeft: 4,
+          }}>
+            ~instant (too fast to measure)
+          </span>
+        )}
+        {speedup !== null && speedup > 0 && !pretextIsInstant && (
           <span style={{
             fontSize: '0.85rem',
             fontWeight: 700,
@@ -38,6 +51,12 @@ export function PerformancePanel({ pretextTime, domTime, label = 'Layout time' }
       </div>
     </div>
   )
+}
+
+function formatTime(ms: number): string {
+  if (ms < 0.005) return '<0.01ms'
+  if (ms < 0.1) return `${ms.toFixed(3)}ms`
+  return `${ms.toFixed(2)}ms`
 }
 
 function Chip({ color, label, value }: { color: string; label: string; value: number | null }) {
@@ -54,7 +73,7 @@ function Chip({ color, label, value }: { color: string; label: string; value: nu
       <span style={{ width: 8, height: 8, borderRadius: '50%', background: color }} />
       <span style={{ color: 'var(--color-text-muted)' }}>{label}:</span>
       <span style={{ fontWeight: 600, fontFamily: 'monospace', color }}>
-        {value !== null ? `${value.toFixed(2)}ms` : '...'}
+        {value !== null ? formatTime(value) : '...'}
       </span>
     </span>
   )
