@@ -113,3 +113,17 @@
 .text-fitting__label--dom {
   color: var(--color-warning);
 }
+
+@media (max-width: 768px) {
+  .text-fitting__preview-area {
+    flex-direction: column;
+  }
+
+  .text-fitting__slider {
+    width: 100%;
+  }
+
+  .text-fitting__width-control {
+    flex-wrap: wrap;
+  }
+}

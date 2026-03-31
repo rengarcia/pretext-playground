@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import './DemoLayout.css'
 
 interface DemoLayoutProps {
   title: string
@@ -29,8 +30,8 @@ interface SplitViewProps {
 
 export function SplitView({ pretextView, domView }: SplitViewProps) {
   return (
-    <div style={{ display: 'flex', gap: 24, marginTop: 16 }}>
-      <div style={{ flex: 1, minWidth: 0 }}>
+    <div className="split-view">
+      <div className="split-view__panel">
         <h3 style={{
           fontSize: '0.8rem',
           fontWeight: 600,
@@ -43,7 +44,7 @@ export function SplitView({ pretextView, domView }: SplitViewProps) {
         </h3>
         {pretextView}
       </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
+      <div className="split-view__panel">
         <h3 style={{
           fontSize: '0.8rem',
           fontWeight: 600,

@@ -224,3 +224,9 @@
   color: var(--color-warning);
   animation: pulse 1s infinite;
 }
+
+@media (max-width: 768px) {
+  .truncation-demo {
+    flex-direction: column;
+  }
+}
