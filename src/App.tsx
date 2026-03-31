@@ -11,18 +11,20 @@ import './App.css'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Shell />}>
-          <Route index element={<Home />} />
-          <Route path="virtual-email-list" element={<VirtualEmailList />} />
-          <Route path="product-card-grid" element={<ProductCardGrid />} />
-          <Route path="smart-truncation" element={<SmartTruncation />} />
-          <Route path="text-fitting" element={<TextFitting />} />
-          <Route path="typography-lab" element={<TypographyLab />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    <Analytics />
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Shell />}>
+            <Route index element={<Home />} />
+            <Route path="virtual-email-list" element={<VirtualEmailList />} />
+            <Route path="product-card-grid" element={<ProductCardGrid />} />
+            <Route path="smart-truncation" element={<SmartTruncation />} />
+            <Route path="text-fitting" element={<TextFitting />} />
+            <Route path="typography-lab" element={<TypographyLab />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      <Analytics />
+    </>
   )
 }
