@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import './Shell.css'
 
@@ -10,8 +11,19 @@ const demos = [
 ]
 
 export function Shell() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const closeSidebar = () => setSidebarOpen(false)
+
   return (
-    <div className="shell">
+    <div className={`shell${sidebarOpen ? ' shell--sidebar-open' : ''}`}>
+      <button
+        className="shell__menu-btn"
+        onClick={() => setSidebarOpen(o => !o)}
+        aria-label="Toggle navigation"
+      >
+        {sidebarOpen ? '✕' : '☰'}
+      </button>
+      <div className="shell__overlay" onClick={closeSidebar} />
       <aside className="shell__sidebar">
         <div className="shell__logo">
           <h1>Pretext POC</h1>
@@ -24,6 +36,7 @@ export function Shell() {
             className={({ isActive }) =>
               `shell__nav-item${isActive ? ' shell__nav-item--active' : ''}`
             }
+            onClick={closeSidebar}
           >
             Home
           </NavLink>
@@ -34,6 +47,7 @@ export function Shell() {
               className={({ isActive }) =>
                 `shell__nav-item${isActive ? ' shell__nav-item--active' : ''}`
               }
+              onClick={closeSidebar}
             >
               <span className="shell__nav-number">{i + 1}</span>
               {demo.label}

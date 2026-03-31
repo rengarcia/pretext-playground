@@ -87,3 +87,19 @@
   padding: 12px 16px;
   border-bottom: 1px solid var(--color-border);
 }
+
+@media (max-width: 768px) {
+  .email-demo {
+    flex-direction: column;
+  }
+
+  .email-list {
+    resize: none;
+    min-width: unset;
+    height: 360px;
+  }
+
+  .email-dom-list {
+    height: 360px;
+  }
+}
