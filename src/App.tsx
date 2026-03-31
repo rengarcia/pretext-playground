@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { Shell } from './components/Shell'
 import { Home } from './Home'
 import { VirtualEmailList } from './demos/VirtualEmailList/VirtualEmailList'
@@ -22,5 +23,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    <Analytics />
   )
 }
